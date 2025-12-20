@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>गाँव लॉगिन पेज</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background-color: #f0f4c3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #558b2f;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #cfd8dc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #558b2f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #33691e;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>गाँव पोर्टल लॉगिन</h1>
+    <input type="text" id="username" placeholder="अपना नाम दर्ज करें" />
+    <input type="password" id="password" placeholder="पासवर्ड" />
+    <button onclick="login()">लॉगिन करें</button>
+    <div class="error" id="error"></div>
+  </div>
+  <script>
+  function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorBox = document.getElementById("error");
+
+    if (!username) {
+      errorBox.textContent = "कृपया नाम दर्ज करें।";
+      return;
+    }
+
+    if (password === "village@2025") {
+      // ✅ Save name for greeting
+      sessionStorage.setItem("username", username);
+      window.location.href = "village.html";
+    } else {
+      errorBox.textContent = "गलत पासवर्ड। कृपया पुनः प्रयास करें।";
+    }
+  }
+</script>
+  
+</body>
+</html>
