@@ -1,18 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-  <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>गाँव लॉगिन पेज</title>
+
+  <style>
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background-color: #f0f4c3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #558b2f;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #cfd8dc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #558b2f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #33691e;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Village Portal Login</h2>
+  <div class="login-box">
+    <h1>गाँव पोर्टल लॉगिन</h1>
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-<button id="loginBtn">Login</button>
+    <input type="email" id="email" placeholder="ईमेल दर्ज करें" />
+    <input type="password" id="password" placeholder="पासवर्ड" />
 
-<p>New user? <a href="signup.html">Sign up</a></p>
+    <button id="loginBtn">लॉगिन करें</button>
 
-<script type="module" src="js/auth.js"></script>
+    <p style="margin-top:10px;">
+      नया उपयोगकर्ता?
+      <a href="signup.html">खाता बनाएँ</a>
+    </p>
+
+    <div class="error" id="error"></div>
+  </div>
+
+  <!-- 🔥 Firebase Login Logic -->
+  <script type="module">
+    import { auth } from "./js/firebase.js";
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const loginBtn = document.getElementById("loginBtn");
+    const errorBox = document.getElementById("error");
+
+    loginBtn.addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!email || !password) {
+        errorBox.textContent = "कृपया सभी विवरण भरें।";
+        return;
+      }
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "index.html";
+      } catch (error) {
+        errorBox.textContent = "लॉगिन असफल। ईमेल या पासवर्ड गलत है।";
+      }
+    });
+  </script>
+
 </body>
 </html>
